@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <title>Will You Be Mine Forever? ❤️</title>
+  <!-- 
+    🎵 MUSIC SETUP FOR "MAAN MERA" FROM TABLE NO. 21:
+    
+    To add your "Maan Mera" song clip:
+    1. Save the audio file in the same folder as this HTML file
+    2. Name it "maan-mera-clip.mp3" (or any name you prefer)
+    3. Update the audio source below to: src="maan-mera-clip.mp3"
+    4. Or use any online URL for the song clip
+    
+    The music button is fully functional and will play your chosen clip!
+  -->
+  <style>
+    /* ==== Global Styles ==== */
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ffeef8, #ffe0f0, #ffd4e8);
+      color: #333;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* ==== Floating Hearts Background ==== */
+    #heartsContainer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      /* Optimize for mobile performance */
+      will-change: transform;
+      backface-visibility: hidden;
+      perspective: 1000px;
+      /* Prevent touch interference */
+      touch-action: none;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+    }
+
+    .heart-wrapper {
+      position: absolute;
+      bottom: -100px;
+      animation: float linear infinite;
+      /* Optimize animations for mobile */
+      will-change: transform;
+      backface-visibility: hidden;
+      /* Prevent touch events */
+      pointer-events: none;
+      -webkit-pointer-events: none;
+    }
+
+    .heart {
+      position: relative;
+      width: 30px;
+      height: 30px;
+      background: #ff1493;
+      transform: rotate(45deg);
+      pointer-events: none;
+      user-select: none;
+      /* Improve rendering performance */
+      will-change: transform;
+      backface-visibility: hidden;
+      /* Prevent touch events */
+      -webkit-pointer-events: none;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      background: #ff1493;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -15px;
+      left: 0;
+    }
+
+    .heart::after {
+      top: 0;
+      left: -15px;
+    }
+
+    .heart.styled-red {
+      background: #dc143c;
+    }
+
+    .heart.styled-red::before,
+    .heart.styled-red::after {
+      background: #dc143c;
+    }
+
+    .heart.styled-light-red {
+      background: #ff69b4;
+    }
+
+    .heart.styled-light-red::before,
+    .heart.styled-light-red::after {
+      background: #ff69b4;
+    }
+
+    .heart.styled-pink {
+      background: #ff1493;
+    }
+
+    .heart.styled-pink::before,
+    .heart.styled-pink::after {
+      background: #ff1493;
+    }
+
+    .heart.styled-hot-pink {
+      background: #ff69b4;
+    }
+
+    .heart.styled-hot-pink::before,
+    .heart.styled-hot-pink::after {
+      background: #ff69b4;
+    }
+
+    .heart.styled-crimson {
+      background: #dc143c;
+    }
+
+    .heart.styled-crimson::before,
+    .heart.styled-crimson::after {
+      background: #dc143c;
+    }
+
+    .heart.styled-rose {
+      background: #ff6363;
+    }
+
+    .heart.styled-rose::before,
+    .heart.styled-rose::after {
+      background: #ff6363;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(45deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.8;
+      }
+      90% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-120vh) rotate(405deg);
+        opacity: 0;
+      }
+    }
+
+    /* ==== Sections ==== */
+    section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 1.2s ease, transform 1.2s ease;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ==== Hero Section ==== */
+    .hero h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 5rem;
+      color: #d63076;
+      text-shadow: 0 0 20px rgba(255, 105, 180, 0.6);
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.6rem;
+      color: #77446b;
+      margin-bottom: 3rem;
+    }
+
+    .btn-continue {
+      padding: 1rem 2.5rem;
+      font-size: 1.4rem;
+      background: linear-gradient(45deg, #ff69b4, #ff1493);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(255, 105, 180, 0.4);
+      transition: all 0.4s ease;
+    }
+
+    .btn-continue:hover {
+      transform: scale(1.1);
+      box-shadow: 0 15px 40px rgba(255, 20, 147, 0.6);
+    }
+
+    /* ==== Memory Cards ==== */
+    .memories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      width: 100%;
+      margin-top: 3rem;
+    }
+
+    .memory-card {
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(255, 105, 180, 0.2);
+      transition: transform 0.4s ease;
+    }
+
+    .memory-card:hover {
+      transform: translateY(-15px);
+    }
+
+    .memory-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      background: #ddd;
+      /* Optimize GIF performance */
+      image-rendering: optimizeQuality;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+
+    /* Mobile optimization for GIFs */
+    @media (max-width: 768px) {
+      .memory-card img {
+        height: 200px; /* Smaller on mobile */
+        image-rendering: -webkit-optimize-contrast;
+      }
+    }
+
+    .memory-card p {
+      padding: 1.5rem;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.8rem;
+      color: #c71585;
+    }
+
+    /* ==== Final Proposal ==== */
+    .proposal h2 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 4.5rem;
+      color: #c71585;
+      margin-bottom: 4rem;
+      text-shadow: 0 0 20px rgba(255, 20, 147, 0.4);
+    }
+
+    .proposal-buttons {
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-yes {
+      padding: 1.5rem 4rem;
+      font-size: 2rem;
+      background: linear-gradient(45deg, #ff1493, #ff69b4);
+      color: white;
+      border: none;
+      border-radius: 60px;
+      cursor: pointer;
+      box-shadow: 0 15px 40px rgba(255, 20, 147, 0.5);
+      transition: all 0.4s ease;
+    }
+
+    .btn-yes:hover {
+      transform: scale(1.15);
+      box-shadow: 0 20px 50px rgba(255, 20, 147, 0.8);
+    }
+
+    .btn-no {
+      padding: 0.8rem 2rem;
+      font-size: 1.2rem;
+      background: #ccc;
+      color: #666;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .btn-no:hover {
+      transform: translateX(150px);
+    }
+
+    /* ==== Music Toggle ==== */
+    .music-toggle {
+      position: fixed;
+      bottom: 40px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+      z-index: 1000;
+      font-size: 1.8rem;
+      transition: all 0.3s ease;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .music-toggle:active {
+      transform: scale(0.9);
+      box-shadow: 0 3px 15px rgba(0,0,0,0.3);
+    }
+
+    /* ==== Interactive Compliments ==== */
+    .compliments-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin: 3rem 0;
+    }
+
+    .compliment-btn {
+      padding: 0.8rem 1.5rem;
+      background: linear-gradient(45deg, #ffb6c1, #ffc0cb);
+      color: #c71585;
+      border: 2px solid #ff69b4;
+      border-radius: 25px;
+      cursor: pointer;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.3rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .compliment-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 25px rgba(255, 105, 180, 0.4);
+    }
+
+    .compliment-btn:active {
+      transform: scale(0.95);
+    }
+
+    .compliment-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(45deg, #ff69b4, #ff1493);
+      color: white;
+      padding: 2rem;
+      border-radius: 20px;
+      font-family: 'Dancing Script', cursive;
+      font-size: 2rem;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.5s ease;
+      box-shadow: 0 20px 50px rgba(255, 20, 147, 0.6);
+      max-width: 90vw;
+      text-align: center;
+    }
+
+    .compliment-message.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    /* ==== Sparkle Effect ==== */
+    .sparkle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: radial-gradient(circle, #fff, #ff69b4);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: sparkle-animation 1.5s ease-out forwards;
+      z-index: 999;
+    }
+
+    @keyframes sparkle-animation {
+      0% {
+        opacity: 1;
+        transform: scale(0) rotate(0deg);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1) rotate(180deg);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0) rotate(360deg);
+      }
+    }
+
+    /* ==== Interactive Memory Cards ==== */
+    .memory-card {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .memory-card::after {
+      content: 'Click for surprise 💖';
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 105, 180, 0.9);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 15px;
+      font-size: 0.9rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .memory-card:hover::after {
+      opacity: 1;
+    }
+
+    /* ==== Love Meter ==== */
+    .love-meter {
+      margin: 3rem 0;
+      text-align: center;
+    }
+
+    .love-meter h3 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.5rem;
+      color: #c71585;
+      margin-bottom: 1rem;
+    }
+
+    .meter-container {
+      width: 300px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 20px;
+      margin: 0 auto;
+      border: 3px solid #ff69b4;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .meter-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #ff69b4, #ff1493, #ffb6c1);
+      width: 0%;
+      transition: width 0.5s ease;
+      border-radius: 17px;
+    }
+
+    .meter-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-weight: bold;
+      color: #c71585;
+      font-size: 1.1rem;
+    }
+
+    /* ==== Secret Hearts ==== */
+    .secret-heart {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: #ff69b4;
+      transform: rotate(45deg);
+      cursor: pointer;
+      animation: secret-float 3s ease-in-out infinite;
+      z-index: 100;
+    }
+
+    .secret-heart::before,
+    .secret-heart::after {
+      content: '';
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      background: #ff69b4;
+      border-radius: 50%;
+    }
+
+    .secret-heart::before {
+      top: -20px;
+      left: 0;
+    }
+
+    .secret-heart::after {
+      top: 0;
+      left: -20px;
+    }
+
+    @keyframes secret-float {
+      0%, 100% { transform: rotate(45deg) translateY(0px); }
+      50% { transform: rotate(45deg) translateY(-10px); }
+    }
+
+    /* ==== Mobile Optimizations ==== */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.8rem; }
+      .hero p { font-size: 1.1rem; }
+      .proposal h2 { font-size: 2.5rem; }
+      .btn-yes { font-size: 1.4rem; padding: 1rem 2.5rem; }
+      .meter-container { width: 280px; }
+      .compliment-btn { font-size: 1rem; padding: 0.8rem 1.3rem; }
+      .love-meter h3 { font-size: 2rem; }
+      .compliment-message { font-size: 1.5rem; padding: 1.5rem; }
+      
+      /* Improve touch targets */
+      .btn-continue, .btn-yes, .btn-no, .compliment-btn, .meter-container, .music-toggle {
+        min-height: 44px;
+        min-width: 44px;
+      }
+      
+      /* Optimize hearts for mobile performance */
+      .heart-wrapper {
+        animation-duration: 6s !important;
+      }
+      
+      #heartsContainer {
+        z-index: 1;
+      }
+      
+      /* Stack compliments vertically on very small screens */
+      .compliments-section {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .compliment-btn {
+        width: 90%;
+        max-width: 300px;
+      }
+      
+      /* Better mobile spacing */
+      section {
+        padding: 1rem;
+      }
+      
+      /* Touch-friendly interactions */
+      .memory-card {
+        cursor: pointer;
+        -webkit-tap-highlight-color: rgba(255, 105, 180, 0.3);
+      }
+      
+      /* Improve mobile scroll performance */
+      body {
+        -webkit-overflow-scrolling: touch;
+      }
+      
+      /* Reduce motion for accessibility */
+      @media (prefers-reduced-motion: reduce) {
+        .heart-wrapper {
+          animation: none !important;
+        }
+        
+        .heart {
+          opacity: 0.3 !important;
+        }
+        
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    }
+
+    /* Extra small mobile devices */
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 2.2rem; }
+      .hero p { font-size: 1rem; }
+      .proposal h2 { font-size: 2rem; }
+      .btn-yes { font-size: 1.2rem; padding: 0.8rem 2rem; }
+      .meter-container { width: 90%; max-width: 280px; }
+      .compliments-section { gap: 0.8rem; }
+      .compliment-btn { font-size: 0.9rem; padding: 0.7rem 1rem; }
+      .love-meter h3 { font-size: 1.8rem; }
+      .compliment-message { font-size: 1.3rem; padding: 1.2rem; }
+      
+      /* Music button position for very small screens */
+      .music-toggle {
+        bottom: 15px;
+        right: 15px;
+        padding: 12px;
+        font-size: 1.5rem;
+      }
+      
+      /* Ensure buttons are easily tappable */
+      .btn-continue, .btn-yes, .btn-no, .compliment-btn {
+        margin: 0.5rem 0;
+      }
+    }
+
+    /* Mobile landscape orientation */
+    @media (max-width: 768px) and (orientation: landscape) {
+      .hero h1 { font-size: 2.5rem; }
+      .hero p { font-size: 1rem; }
+      section { padding: 0.5rem; }
+      .memories { margin-top: 1.5rem; }
+      .compliments-section { margin: 1.5rem 0; }
+      .love-meter { margin: 1.5rem 0; }
+    }
+
+    /* Mobile portrait specific adjustments */
+    @media (max-width: 768px) and (orientation: portrait) {
+      .memory-card img {
+        height: 200px;
+      }
+      
+      .memories {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
+
+    /* High DPI display optimizations */
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+      .heart {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Music - "Maan Mera" from Table No. 21 -->
+  <audio id="bgMusic" loop>
+    <!-- Using local Maan Mera clip -->
+    <source src="maan-mera-clip.mp3" type="audio/mpeg">
+    <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEaBSuBzvLZgyMKNG6wL9cS" type="audio/wav">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Music Toggle Button -->
+  <div class="music-toggle" id="musicToggle" title="Play Maan Mera from Table No. 21">🎵</div>
+
+  <!-- Compliment Message Popup -->
+  <div class="compliment-message" id="complimentMessage"></div>
+
+  <!-- Floating Hearts Container -->
+  <div id="heartsContainer"></div>
+
+  <!-- Hero Section -->
+  <section class="hero visible">
+    <h1>Payal, Will You Be Mine Forever?</h1>
+    <p>Every moment with you feels like magic.</p>
+    <button class="btn-continue" onclick="scrollToNext()">Tap to Continue ❤️</button>
+  </section>
+
+  <!-- Memories Section -->
+  <section class="memories-section">
+    <h2 style="font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: #c71585; margin-bottom: 2rem;">
+      Our Beautiful Moments
+    </h2>
+    
+    <!-- Compliments Section -->
+    <div class="compliments-section">
+      <button class="compliment-btn" onclick="showCompliment('You are the most beautiful person inside and out! 💕')">Tell me something sweet</button>
+      <button class="compliment-btn" onclick="showCompliment('Your smile lights up my entire world! ✨')">Make me smile</button>
+      <button class="compliment-btn" onclick="showCompliment('You are absolutely amazing and I adore you! 🌟')">I need encouragement</button>
+      <button class="compliment-btn" onclick="showCompliment('Being with you is my favorite place to be! 🏰')">Tell me you love me</button>
+      <button class="compliment-btn" onclick="showCompliment('You make every ordinary moment feel magical! 🪄')">Say something magical</button>
+      <button class="compliment-btn" onclick="showCompliment('You are my sunshine on the cloudiest days! ☀️')">I need sunshine</button>
+    </div>
+
+    <!-- Love Meter -->
+    <div class="love-meter">
+      <h3>Click to fill our love meter! 💖</h3>
+      <div class="meter-container" onclick="fillLoveMeter()">
+        <div class="meter-fill" id="meterFill"></div>
+        <div class="meter-text" id="meterText">0% Love</div>
+      </div>
+    </div>
+
+    <!-- Memory Cards -->
+    <div class="memories">
+      <div class="memory-card" onclick="showMemorySurprise(this, 'Every time I look into your eyes, I see my future. You are my today and all of my tomorrows! 💝')">
+        <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" alt="Cute Cat 1" loop>
+        <p>You're my happiest place</p>
+      </div>
+      <div class="memory-card" onclick="showMemorySurprise(this, 'You bring so much joy and laughter into my life. You are the melody to my heart\'s song! 🎵')">
+        <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3NyZ3g4ZTdrODZ6cWhpeHA1NGdjNTFtcXd5cXNrbzVhcGxkNjh1MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/d37mEpcaGP3pudPoho/giphy.gif" alt="Cute Cat 2" loop>
+        <p>You make my world brighter</p>
+      </div>
+      <div class="memory-card" onclick="showMemorySurprise(this, 'Your laugh is my favorite sound in the entire universe. It\'s like music to my soul! 🎶')">
+        <img src="https://media.giphy.com/media/xT9DPldJHzZKtOnEn6/giphy.gif" alt="Cute Cat 3" loop>
+        <p>Every laugh with you is my favorite sound</p>
+      </div>
+      <div class="memory-card" onclick="showMemorySurprise(this, 'Even forever wouldn\'t be long enough to show you how much I love you. You are everything! 💎')">
+        <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExZXhlcmNmczkweGhya20ybWUycThlem80aGlmNXNqNTNlNGJwNDgwbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/X42IAaDJ42pHqPllGk/giphy.gif" alt="Cute Cat 4" loop>
+        <p>Forever isn't long enough with you</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final Proposal Section -->
+  <section class="proposal">
+    <h2>Will you be my girlfriend forever?</h2>
+    <div class="proposal-buttons">
+      <button class="btn-yes" id="yesBtn">YES ❤️</button>
+      <button class="btn-no" id="noBtn">NO 😭</button>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <script>
+    // Mobile-friendly floating hearts generator
+    const heartsContainer = document.getElementById('heartsContainer');
+    const redColors = ['styled-red', 'styled-light-red', 'styled-pink', 'styled-hot-pink', 'styled-crimson', 'styled-rose'];
+
+    // Detect if device is mobile
+    function isMobile() {
+      return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+
+    // Mobile-optimized settings
+    const isMobileDevice = isMobile();
+    const mobileSettings = {
+      interval: isMobileDevice ? 400 : 200, // Slower creation on mobile
+      maxHearts: isMobileDevice ? 15 : 50,  // Limit hearts on mobile
+      sizeMin: isMobileDevice ? 15 : 20,    // Smaller hearts on mobile
+      sizeMax: isMobileDevice ? 35 : 60,    // Smaller max size on mobile
+      durationMin: isMobileDevice ? 4 : 3,  // Slower animation on mobile
+      durationMax: isMobileDevice ? 8 : 6   // Slower max duration on mobile
+    };
+
+    let heartCount = 0;
+
+    function createHeart() {
+      // Limit hearts on mobile to prevent performance issues
+      if (isMobileDevice && heartCount >= mobileSettings.maxHearts) {
+        return;
+      }
+
+      const heartWrapper = document.createElement('div');
+      heartWrapper.classList.add('heart-wrapper');
+      heartWrapper.style.position = 'absolute';
+      heartWrapper.style.bottom = '-100px';
+      
+      // Random horizontal position
+      heartWrapper.style.left = Math.random() * 100 + 'vw';
+      
+      // Mobile-optimized animation duration
+      const duration = Math.random() * (mobileSettings.durationMax - mobileSettings.durationMin) + mobileSettings.durationMin;
+      heartWrapper.style.animationDuration = duration + 's';
+      
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      
+      // Add random red color variation
+      const randomColor = redColors[Math.floor(Math.random() * redColors.length)];
+      heart.classList.add(randomColor);
+      
+      // Mobile-optimized size variations
+      const size = Math.random() * (mobileSettings.sizeMax - mobileSettings.sizeMin) + mobileSettings.sizeMin;
+      heart.style.width = size + 'px';
+      heart.style.height = size + 'px';
+      
+      // Adjust pseudo-elements for new size
+      heart.style.setProperty('--heart-size', size + 'px');
+      heart.style.setProperty('--heart-half', (size / 2) + 'px');
+      
+      // Random rotation offset
+      const rotation = Math.random() * 360;
+      heartWrapper.style.transform = `rotate(${rotation}deg)`;
+      
+      // Random opacity for more natural look (slightly more opaque on mobile for better visibility)
+      const opacityMin = isMobileDevice ? 0.5 : 0.3;
+      const opacityMax = isMobileDevice ? 0.8 : 0.7;
+      heart.style.opacity = (Math.random() * (opacityMax - opacityMin) + opacityMin).toString();
+      
+      // Random scale for shape variation (less variation on mobile)
+      const scaleVariation = isMobileDevice ? 0.3 : 0.5;
+      const scaleX = Math.random() * scaleVariation + (1 - scaleVariation/2); // 0.85 to 1.15 on mobile, 0.75 to 1.25 on desktop
+      const scaleY = Math.random() * scaleVariation + (1 - scaleVariation/2);
+      heart.style.transform = `scale(${scaleX}, ${scaleY})`;
+      
+      // Random heart style variations
+      const variation = Math.random();
+      if (variation < 0.3) {
+        // Normal heart
+        heart.style.borderRadius = '50% 50% 0 0';
+      } else if (variation < 0.6) {
+        // Slightly squished heart
+        heart.style.borderRadius = '60% 60% 0 0';
+      } else {
+        // More rounded heart
+        heart.style.borderRadius = '40% 40% 0 0';
+      }
+      
+      heartWrapper.appendChild(heart);
+      heartsContainer.appendChild(heartWrapper);
+      heartCount++;
+
+      // Remove heart after animation completes
+      setTimeout(() => {
+        if (heartWrapper.parentNode) {
+          heartWrapper.remove();
+          heartCount--;
+        }
+      }, duration * 1000 + 1000);
+    }
+
+    // Create hearts only when page loads (no continuous looping)
+    function createInitialHearts() {
+      const heartCount = isMobileDevice ? 8 : 15;
+      for (let i = 0; i < heartCount; i++) {
+        setTimeout(createHeart, i * (isMobileDevice ? 300 : 200));
+      }
+    }
+    
+    // Call once when page loads
+    createInitialHearts();
+
+    // Scroll to next section
+    function scrollToNext() {
+      document.querySelector('.memories-section').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Scroll reveal animation
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.3 });
+
+    sections.forEach(section => observer.observe(section));
+
+    // Music toggle for "Maan Mera" from Table No. 21
+    const bgMusic = document.getElementById('bgMusic');
+    const musicToggle = document.getElementById('musicToggle');
+    let isPlaying = false;
+
+    musicToggle.addEventListener('click', () => {
+      if (isPlaying) {
+        bgMusic.pause();
+        musicToggle.innerHTML = '🎵';
+        musicToggle.title = "Play Maan Mera from Table No. 21";
+      } else {
+        bgMusic.play();
+        musicToggle.innerHTML = '🎶';
+        musicToggle.title = "Pause Maan Mera";
+        
+        // Create musical note effects when starting music (reduced amount)
+        for (let i = 0; i < 3; i++) {
+          setTimeout(() => {
+            const note = document.createElement('div');
+            note.innerHTML = '♪';
+            note.style.position = 'fixed';
+            note.style.left = Math.random() * window.innerWidth + 'px';
+            note.style.top = '100vh';
+            note.style.fontSize = '1.5rem';
+            note.style.color = '#ff69b4';
+            note.style.pointerEvents = 'none';
+            note.style.zIndex = '999';
+            note.style.animation = 'float 2s ease-out forwards';
+            document.body.appendChild(note);
+            
+            setTimeout(() => note.remove(), 2000);
+          }, i * 300);
+        }
+      }
+      isPlaying = !isPlaying;
+    });
+
+    // Auto-play music on first interaction (for mobile)
+    document.body.addEventListener('click', () => {
+      if (!isPlaying) {
+        bgMusic.play().catch(() => {
+          // Handle autoplay restrictions gracefully
+          console.log('Autoplay prevented by browser. User interaction required.');
+        });
+        musicToggle.innerHTML = '🎶';
+        musicToggle.title = "Pause Maan Mera";
+        isPlaying = true;
+      }
+    }, { once: true });
+
+    // Enhanced mobile touch interactions
+    if (isMobileDevice) {
+      // Prevent zoom on double tap for buttons
+      document.addEventListener('touchend', (e) => {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) {
+          e.preventDefault();
+        }
+        lastTouchEnd = now;
+      }, false);
+
+      let lastTouchEnd = 0;
+
+      // Optimize touch scrolling
+      document.body.style.webkitOverflowScrolling = 'touch';
+
+      // Better touch feedback for interactive elements
+      const touchElements = document.querySelectorAll('.btn-continue, .btn-yes, .btn-no, .compliment-btn, .memory-card, .meter-container');
+      
+      touchElements.forEach(element => {
+        element.addEventListener('touchstart', function() {
+          this.style.transform = 'scale(0.95)';
+        });
+        
+        element.addEventListener('touchend', function() {
+          this.style.transform = '';
+        });
+      });
+    }
+
+    // YES button - heart explosion + confetti
+    document.getElementById('yesBtn').addEventListener('click', () => {
+      // Confetti explosion
+      confetti({
+        particleCount: 200,
+        spread: 100,
+        origin: { y: 0.6 },
+        colors: ['#ff69b4', '#ff1493', '#ff8cc8', '#ffb6c1', '#ffc0cb']
+      });
+
+      // Heart burst
+      for (let i = 0; i < 50; i++) {
+        setTimeout(() => {
+          confetti({
+            particleCount: 5,
+            angle: Math.random() * 360,
+            spread: 100,
+            origin: { x: Math.random(), y: 0.8 },
+            colors: ['#ff1493', '#ff69b4']
+          });
+        }, i * 100);
+      }
+
+      // Sweet message
+      setTimeout(() => {
+        alert("I LOVE YOU SO MUCH!!! You just made me the happiest person alive! 💕✨ Forever yours ❤️");
+      }, 1000);
+    });
+
+    // NO button runs away
+    document.getElementById('noBtn').addEventListener('mouseenter', () => {
+      const btn = document.getElementById('noBtn');
+      const x = Math.random() * (window.innerWidth - btn.offsetWidth - 100);
+      const y = Math.random() * (window.innerHeight - btn.offsetHeight - 200);
+      btn.style.position = 'fixed';
+      btn.style.left = x + 'px';
+      btn.style.top = y + 'px';
+    });
+
+    // ==== NEW INTERACTIVE FEATURES ====
+
+    // Show compliment popup
+    function showCompliment(message) {
+      const popup = document.getElementById('complimentMessage');
+      popup.textContent = message;
+      popup.classList.add('show');
+      
+      // Create sparkle effects
+      for (let i = 0; i < 10; i++) {
+        setTimeout(() => createSparkle(), i * 100);
+      }
+      
+      setTimeout(() => {
+        popup.classList.remove('show');
+      }, 3000);
+    }
+
+    // Fill love meter
+    let lovePercentage = 0;
+    let meterInterval;
+    function fillLoveMeter() {
+      if (meterInterval) return; // Prevent multiple clicks
+      
+      const meterFill = document.getElementById('meterFill');
+      const meterText = document.getElementById('meterText');
+      
+      meterInterval = setInterval(() => {
+        lovePercentage += 10;
+        if (lovePercentage > 100) {
+          lovePercentage = 100;
+          clearInterval(meterInterval);
+          meterInterval = null;
+          
+          // Special message when meter is full
+          setTimeout(() => {
+            showCompliment("MY LOVE FOR YOU IS INFINITE! 💖✨");
+          }, 500);
+        }
+        
+        meterFill.style.width = lovePercentage + '%';
+        meterText.textContent = lovePercentage + '% Love';
+        
+        // Create heart burst at certain percentages (reduced amount)
+        if (lovePercentage === 50 || lovePercentage === 100) {
+          for (let i = 0; i < 10; i++) {
+            setTimeout(() => {
+              confetti({
+                particleCount: 2,
+                angle: Math.random() * 360,
+                spread: 60,
+                origin: { x: 0.5, y: 0.5 },
+                colors: ['#ff1493', '#ff69b4', '#ffb6c1']
+              });
+            }, i * 100);
+          }
+        }
+      }, 200);
+    }
+
+    // Show memory surprise
+    function showMemorySurprise(card, message) {
+      // Add click animation
+      card.style.transform = 'scale(1.05)';
+      setTimeout(() => {
+        card.style.transform = '';
+      }, 200);
+      
+      // Show surprise message
+      showCompliment(message);
+      
+      // Create sparkle effects around the card
+      const rect = card.getBoundingClientRect();
+      for (let i = 0; i < 15; i++) {
+        setTimeout(() => {
+          const x = rect.left + Math.random() * rect.width;
+          const y = rect.top + Math.random() * rect.height;
+          createSparkleAt(x, y);
+        }, i * 50);
+      }
+    }
+
+    // Create sparkle effect (limited to prevent overwhelming)
+    let sparkleCount = 0;
+    const maxSparkles = 20; // Limit total sparkles
+    
+    function createSparkle() {
+      if (sparkleCount >= maxSparkles) return; // Don't create more than limit
+      
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      sparkle.style.left = Math.random() * window.innerWidth + 'px';
+      sparkle.style.top = Math.random() * window.innerHeight + 'px';
+      document.body.appendChild(sparkle);
+      sparkleCount++;
+      
+      setTimeout(() => {
+        sparkle.remove();
+        sparkleCount--; // Reduce count when removed
+      }, 1500);
+    }
+
+    // Create sparkle at specific position
+    function createSparkleAt(x, y) {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      sparkle.style.left = x + 'px';
+      sparkle.style.top = y + 'px';
+      sparkle.style.position = 'fixed';
+      document.body.appendChild(sparkle);
+      
+      setTimeout(() => {
+        sparkle.remove();
+      }, 1500);
+    }
+
+    // Add secret hearts only once when page loads (no continuous looping)
+    function createSecretHeartsOnce() {
+      const heartCount = 3; // Only 3 secret hearts
+      for (let i = 0; i < heartCount; i++) {
+        setTimeout(() => {
+          if (Math.random() < 0.7) { // 70% chance for each heart
+            createSecretHeart();
+          }
+        }, i * 2000 + Math.random() * 2000); // Staggered appearance
+      }
+    }
+    
+    // Call once when page loads
+    createSecretHeartsOnce();
+
+    let secretHeartCount = 0;
+    const maxSecretHearts = 3; // Limit secret hearts on screen
+    
+    function createSecretHeart() {
+      if (secretHeartCount >= maxSecretHearts) return; // Don't create more than limit
+      
+      const heart = document.createElement('div');
+      heart.className = 'secret-heart';
+      heart.style.left = Math.random() * (window.innerWidth - 50) + 'px';
+      heart.style.top = Math.random() * (window.innerHeight - 100) + 'px';
+      
+      heart.addEventListener('click', () => {
+        showCompliment("You found my secret heart! 💕 You make me feel so special!");
+        heart.remove();
+        secretHeartCount--;
+        
+        // Heart burst effect
+        for (let i = 0; i < 10; i++) {
+          setTimeout(() => {
+            confetti({
+              particleCount: 5,
+              angle: Math.random() * 360,
+              spread: 50,
+              origin: { x: parseFloat(heart.style.left) / window.innerWidth, y: parseFloat(heart.style.top) / window.innerHeight },
+              colors: ['#ff1493', '#ff69b4']
+            });
+          }, i * 100);
+        }
+      });
+      
+      document.body.appendChild(heart);
+      secretHeartCount++;
+      
+      // Remove after 8 seconds if not clicked (reduced from 10)
+      setTimeout(() => {
+        if (heart.parentNode) {
+          heart.remove();
+          secretHeartCount--;
+        }
+      }, 8000);
+    }
+  </script>
+</body>
+</html>
